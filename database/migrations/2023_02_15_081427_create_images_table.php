@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->references('id')->on('students')->onDelete('CASCADE');
+            $table->string('image_path');
             $table->timestamps();
         });
     }
