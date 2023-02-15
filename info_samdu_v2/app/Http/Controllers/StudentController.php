@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 
 use App\Http\Requests\UpdateStudentRequest;
-
+use App\Models\Image;
 use Illuminate\Http\Request ;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,10 +37,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $student=$request->student;
 
-        $student=Student::create($student);
-  
+        //$student=Student::create($student);
+
+
+        $image=$request->file('images');
+
+        $path=        $image->store('images/users');
+
+        // $student->image()->create([
+        //     'ImagePath'=>$path
+        // ]);
+
         return $request;
     }
 
