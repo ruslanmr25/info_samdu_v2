@@ -6,7 +6,7 @@ use App\Models\Student;
 
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Image;
-use Illuminate\Http\Request ;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
@@ -18,14 +18,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students=Student::all();
+        $students = Student::all();
 
         return response()->json([
-            'data'=>[
-                'success'=>true,
-                'students'=>$students
+            'data' => [
+                'success' => true,
+                'students' => $students
             ]
-            ]);
+        ]);
     }
 
 
@@ -37,23 +37,33 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $rstudent =(array) json_decode( $request->student);
+        $student=Student::create($rstudent);
+        if ($request->images) {
 
+            $image = $request->file('images');
 
+            $path = $image->store('images/users');
 
-        $student=$request->student;
+            $student->image()->create([
+                'students_id'=>$student->id,
+                'ImagePath'=>$path,
+            ]);
+        }
+        else{
+            $image=$rstudent['image'];
 
-        //$student=Student::create($student);
-
-
-        $image=$request->file('images');
-
-        $path=        $image->store('images/users');
-
-        // $student->image()->create([
-        //     'ImagePath'=>$path
-        // ]);
-
-        return $request;
+            $student->image()->create([
+                'students_id'=>$student->id,
+                'ImagePath'=>$image
+            ]);
+        }
+        return response([
+            'data'=>[
+                'success'=>true,
+                'message'=>'User create successfully'
+            ]
+        ]);
     }
 
     /**

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id_number')->uniqie();
+            $table->bigInteger('student_id_number');
             $table->string('passport')->unique();
-            $table->date('get_passport');
+            $table->string('get_passport');
             $table->bigInteger('JSHSHIR');
             $table->string('nationality');
             $table->string('last_name');
