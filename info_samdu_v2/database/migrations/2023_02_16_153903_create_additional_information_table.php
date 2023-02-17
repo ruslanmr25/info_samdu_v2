@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('additional_information', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->references('id')->on('students')->onDelete('CASCADE');
+            $table->foreignId('student_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
             $table->integer('iron_notebook')->nullable();
             $table->integer('youth_notebook')->nullable();
             $table->integer('orphan')->nullable();

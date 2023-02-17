@@ -25,7 +25,7 @@ class Student extends Model
 
 
     public function educational_information(){
-        return $this->hasOne(EducationalInformation::class,'students_id');
+        return $this->belongsTo(EducationalInformation::class,'students_id');
     }
 
 

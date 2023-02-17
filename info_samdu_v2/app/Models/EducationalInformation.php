@@ -10,7 +10,8 @@ class EducationalInformation extends Model
     use HasFactory;
 
     protected $fillable=[
-        'students_id','depatrment','specialty','group','educationForm','educationType',
+        'students_id',
+        'department','specialty','group','educationForm','educationType',
         'specialty_code','level','paymentForm','mark'
     ];
 

@@ -6,6 +6,7 @@ use App\Models\Student;
 
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Image;
+use App\Models\StudyInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,47 +43,55 @@ class StudentController extends Controller
 
         //studentni ushlash
 
-        
-        $rstudent =(array) json_decode( $request->student);
-        $student=Student::create($rstudent);
+
+        $rstudent = (array) json_decode($request->student);
+        $student = Student::create($rstudent);
 
 
-        if($request->study_information){
-
-            $r_study_information=(array) json_decode($request->study_information);
-            $r_study_information['students_id']=$student->id;
-            $student->study_information()->create($r_study_information);
-        }
-
-        $r_educational_information=(array) json_decode($request->educational_information);
-
-
-        $r_educational_information['students_id']=$student->id;
+        $r_educational_information = (array) json_decode($request->educational_information);
+        $r_educational_information['students_id'] = $student->student_id_number;
         $student->educational_information()->create($r_educational_information);
-
-
-
-
         if ($request->images) {
             $image = $request->file('images');
             $image_path = $image->store('images/users');
-        }else{
-            $image_path=$rstudent['image'];
+        } else {
+            $image_path = $rstudent['image'];
         }
 
         $student->image()->create([
-            'students_id'=>$student->id,
-            'ImagePath'=>$image_path
+            'students_id' => $student->student_id_number,
+            'ImagePath' => $image_path
         ]);
 
 
 
         return response([
-            'data'=>[
-                'success'=>true,
-                'message'=>'User create successfully'
+            'data' => [
+                'success' => true,
+                'message' => 'User create successfully'
             ]
         ]);
+    }
+
+    public function create_study_information(Request $request)
+    {
+
+        $student_id = $request->student_id_number;
+        $r_study_information = (array) json_decode($request->study_information);
+        $r_study_information['students_id'] = $student_id;
+
+        StudyInformation::create($r_study_information);
+
+        return response()->json([
+            'data' => [
+                'success' => true
+            ]
+        ]);
+    }
+
+    public function create_place_of_residence(Request $request)
+    {
+        //
     }
 
     /**
