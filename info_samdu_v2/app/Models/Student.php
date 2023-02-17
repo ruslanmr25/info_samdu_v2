@@ -11,21 +11,34 @@ class Student extends Model
 
     protected $fillable=[
         'student_id_number',
-        'passport',
-        'get_passport',
+        'passport','get_passport',
         'JSHSHIR',
         'nationality',
         'last_name',
         'first_name',
         "third_name",
-
         'gender',
         'birthday',
         'citizenship',
-
-
         'phone',
     ];
+
+
+    public function educational_information(){
+        return $this->hasOne(EducationalInformation::class,'students_id');
+    }
+
+
+    public function study_information(){
+        return $this->hasOne(StudyInformation::class,'students_id');
+    }
+
+    public function addtional_information()
+    {
+        return $this->hasOne(AdditionalInformation::class,'students_id');
+    }
+
+
 
     public function image()
     {

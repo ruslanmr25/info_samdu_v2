@@ -37,27 +37,46 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+        //studentni ushlash
+
+        
         $rstudent =(array) json_decode( $request->student);
         $student=Student::create($rstudent);
+
+
+        if($request->study_information){
+
+            $r_study_information=(array) json_decode($request->study_information);
+            $r_study_information['students_id']=$student->id;
+            $student->study_information()->create($r_study_information);
+        }
+
+        $r_educational_information=(array) json_decode($request->educational_information);
+
+
+        $r_educational_information['students_id']=$student->id;
+        $student->educational_information()->create($r_educational_information);
+
+
+
+
         if ($request->images) {
-
             $image = $request->file('images');
-
-            $path = $image->store('images/users');
-
-            $student->image()->create([
-                'students_id'=>$student->id,
-                'ImagePath'=>$path,
-            ]);
+            $image_path = $image->store('images/users');
+        }else{
+            $image_path=$rstudent['image'];
         }
-        else{
-            $image=$rstudent['image'];
 
-            $student->image()->create([
-                'students_id'=>$student->id,
-                'ImagePath'=>$image
-            ]);
-        }
+        $student->image()->create([
+            'students_id'=>$student->id,
+            'ImagePath'=>$image_path
+        ]);
+
+
+
         return response([
             'data'=>[
                 'success'=>true,
