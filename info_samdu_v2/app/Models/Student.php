@@ -30,12 +30,12 @@ class Student extends Model
 
 
     public function study_information(){
-        return $this->hasOne(StudyInformation::class,'students_id');
+        return $this->belongsTo(StudyInformation::class,'students_id');
     }
 
     public function addtional_information()
     {
-        return $this->hasOne(AdditionalInformation::class,'students_id');
+        return $this->belongsTo(AdditionalInformation::class,'students_id');
     }
 
 
