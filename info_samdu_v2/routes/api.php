@@ -21,3 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/students',  StudentController::class);
 
 Route::post('/students/study_information',[StudentController::class,'create_study_information']);
+
+
+Route::post('/students/additional',[StudentController::class,'create_place_of_residence']);

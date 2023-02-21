@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('accommodations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('students_id')->references('student_id')->on('students')->onDelete('CASCADE');
+            $table->foreignId('students_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
             $table->string('accommodation');
             $table->string('country');
             $table->string('province');
             $table->string('disctrict');
-            $table->string('city')->nullable();
+            
             $table->string('residintial_adress');
             $table->timestamps();
         });

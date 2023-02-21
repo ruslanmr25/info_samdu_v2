@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('achievements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('students_id')->references('student_id')->on('students')->onDelete('CASCADE');
+            $table->foreignId('students_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
 
             $table->text('lang_certificate')->nullable();
             $table->text('champion')->nullable();

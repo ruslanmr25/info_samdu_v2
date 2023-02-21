@@ -10,6 +10,7 @@ class Achievements extends Model
     use HasFactory;
 
     protected $fillable=[
+        'students_id',
         'scholarship','champion','lang_certificate'
     ];
 

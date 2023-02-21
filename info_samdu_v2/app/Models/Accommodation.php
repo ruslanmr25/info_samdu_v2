@@ -10,13 +10,14 @@ class Accommodation extends Model
     use HasFactory;
 
     protected $fillable=[
+        'students_id',
         'accommodation',
         'country',
         'province',
         'disctrict',
         'city',
         'residintial_adress',
-        'students_id'
+
     ];
 
 

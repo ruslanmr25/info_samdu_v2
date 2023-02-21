@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('enter_comment')->nullable();
             $table->string('leave_order')->nullable();
             $table->date('leave_date')->nullable();
-            $table->date('academic_holiday')->nullable();
+            $table->string('academic_holiday')->nullable();
             $table->date('academic_holiday_date')->nullable();
             $table->string('first_to_second')->nullable();
             $table->date('first_to_second_date')->nullable();

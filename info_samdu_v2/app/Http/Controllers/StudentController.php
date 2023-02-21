@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Accommodation;
+use App\Models\Achievements;
+use App\Models\AdditionalInformation;
+use App\Models\Graduate;
 use App\Models\Image;
 use App\Models\StudyInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Js;
 
 class StudentController extends Controller
 {
@@ -38,12 +43,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-        //studentni ushlash
-
-
+         //studentni ushlash
         $rstudent = (array) json_decode($request->student);
         $student = Student::create($rstudent);
 
@@ -91,7 +91,42 @@ class StudentController extends Controller
 
     public function create_place_of_residence(Request $request)
     {
-        //
+
+        $students_id=$request->student_id_number;
+
+
+        $accomodiation=(array) json_decode($request->accommodation);
+
+
+
+
+
+        $accomodiation['students_id']=$students_id;
+
+        
+        $achievements=(array) json_decode($request->achievements);
+        $achievements['students_id']=$students_id;
+        $additional_information=(array) json_decode($request->additional_information);
+        $additional_information['students_id']=$students_id;
+        $graduate=(array) json_decode($request->graduate);
+        $graduate['students_id']=$students_id;
+
+
+
+
+        $accomodiation=Accommodation::create($accomodiation);
+        $achievements=Achievements::create($achievements);
+
+
+        $additional_information=AdditionalInformation::create($additional_information);
+        $graduate=Graduate::create($graduate);
+
+        return response()->json([
+            'data'=>[
+                'success'=>true
+            ]
+            ]);
+
     }
 
     /**

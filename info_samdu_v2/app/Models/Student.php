@@ -44,4 +44,6 @@ class Student extends Model
     {
         return $this->belongsTo(Image::class,'students_id');
     }
+
+    
 }

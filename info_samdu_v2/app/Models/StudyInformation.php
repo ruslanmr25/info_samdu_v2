@@ -10,6 +10,7 @@ class StudyInformation extends Model
     use HasFactory;
 
     protected $fillable=[
+        'students_id',
         'enter_order',
         'enter_date',
         'enter_comment',

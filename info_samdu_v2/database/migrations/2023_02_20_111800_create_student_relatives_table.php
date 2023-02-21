@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('student_relatives', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('students_id')->references('student_id')->on('students')->onDelete('CASCADE');
+            $table->foreignId('students_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
 
             $table->text('relatives');
             $table->timestamps();
