@@ -10,13 +10,13 @@ class EducationalInformation extends Model
     use HasFactory;
 
     protected $fillable=[
-        'students_id',
+        'student_id',
         'department','specialty','group','educationForm','educationType',
         'specialty_code','level','paymentForm','mark'
     ];
 
 
     public function students(){
-        return $this->belongsTo(Student::class,'students_id');
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
     }
 }

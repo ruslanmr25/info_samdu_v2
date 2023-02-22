@@ -14,13 +14,13 @@ class Graduate extends Model
         'finish_educationForm',
         'finish_speciality','finish_collage_date','finish_collage',
         'diploma_date',
-        'diploma','students_id'
+        'diploma','student_id'
     ];
 
 
 
     public function students()
     {
-        return $this->belongsTo(Student::class,'students_id');
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
     }
 }

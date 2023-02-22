@@ -20,7 +20,7 @@ return new class extends Migration
         });
         Schema::create('users_roles',function(Blueprint $table){
             $table->id();
-            $table->foreignId('students_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreignId('users_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreignId('roles_id')->references('id')->on('roles')->onDelete('CASCADE');
         });
 

@@ -10,10 +10,10 @@ use App\Models\Achievements;
 use App\Models\AdditionalInformation;
 use App\Models\Graduate;
 use App\Models\Image;
+use App\Models\StudentRelative;
 use App\Models\StudyInformation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Js;
+use PhpParser\Node\Name\Relative;
 
 class StudentController extends Controller
 {
@@ -24,7 +24,18 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::with('accomodations')
+        ->with('achievement')
+        ->with('addtional_information')
+        ->with('educational_information')
+        ->with('graduate')
+        ->with('image')
+        ->with('student_relatives')
+        ->with('study_information')
+
+        ->paginate(25);
+
+        return $students;
 
         return response()->json([
             'data' => [
@@ -49,7 +60,7 @@ class StudentController extends Controller
 
 
         $r_educational_information = (array) json_decode($request->educational_information);
-        $r_educational_information['students_id'] = $student->student_id_number;
+        $r_educational_information['student_id'] = $student->student_id_number;
         $student->educational_information()->create($r_educational_information);
         if ($request->images) {
             $image = $request->file('images');
@@ -59,7 +70,7 @@ class StudentController extends Controller
         }
 
         $student->image()->create([
-            'students_id' => $student->student_id_number,
+            'student_id' => $student->student_id_number,
             'ImagePath' => $image_path
         ]);
 
@@ -78,7 +89,7 @@ class StudentController extends Controller
 
         $student_id = $request->student_id_number;
         $r_study_information = (array) json_decode($request->study_information);
-        $r_study_information['students_id'] = $student_id;
+        $r_study_information['student_id'] = $student_id;
 
         StudyInformation::create($r_study_information);
 
@@ -92,7 +103,7 @@ class StudentController extends Controller
     public function create_place_of_residence(Request $request)
     {
 
-        $students_id=$request->student_id_number;
+        $student_id=$request->student_id_number;
 
 
         $accomodiation=(array) json_decode($request->accommodation);
@@ -101,15 +112,15 @@ class StudentController extends Controller
 
 
 
-        $accomodiation['students_id']=$students_id;
+        $accomodiation['student_id']=$student_id;
 
-        
+
         $achievements=(array) json_decode($request->achievements);
-        $achievements['students_id']=$students_id;
+        $achievements['student_id']=$student_id;
         $additional_information=(array) json_decode($request->additional_information);
-        $additional_information['students_id']=$students_id;
+        $additional_information['student_id']=$student_id;
         $graduate=(array) json_decode($request->graduate);
-        $graduate['students_id']=$students_id;
+        $graduate['student_id']=$student_id;
 
 
 
@@ -127,6 +138,29 @@ class StudentController extends Controller
             ]
             ]);
 
+    }
+
+
+    public function relatives (Request $request)
+    {
+        $student_id=$request->student_id_number;
+
+
+        $relatives=(array) json_decode($request->relatives);
+
+
+
+
+
+        $relatives['student_id']=$student_id;
+
+        StudentRelative::create($relatives);
+
+        return response()->json([
+            'data'=>[
+                'success'=>true
+            ]
+            ]);
     }
 
     /**

@@ -10,6 +10,11 @@ class StudentRelative extends Model
     use HasFactory;
 
     protected $fillable=[
-        'students_id','relatives'
+        'student_id','relatives','is_married'
     ];
+
+    public function students()
+    {
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
+    }
 }

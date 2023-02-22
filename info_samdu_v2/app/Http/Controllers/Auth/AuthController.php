@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -27,9 +28,12 @@ class AuthController extends Controller
 
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         $user=Auth::user();
+
+
+
 
 
 
@@ -38,8 +42,18 @@ class AuthController extends Controller
         return response([
             'data'=>[
                 'success'=>true,
+                'token'=>$token
             ]
-        ])->withHeaders(['Set-Cookie'=>$token]);
+        ]);
+    }
+
+    public function test1(Request $request)
+    {
+
+        return $request->cookie('user');
+
+
+
     }
 
 }

@@ -23,27 +23,51 @@ class Student extends Model
         'phone',
     ];
 
+    public function accomodations()
+    {
+        return $this->hasOne(Accommodation::class,'student_id','student_id_number');
+    }
 
-    public function educational_information(){
-        return $this->belongsTo(EducationalInformation::class,'students_id');
+    public function achievement()
+    {
+        return $this->hasOne(Achievements::class,'student_id','student_id_number');
     }
 
 
-    public function study_information(){
-        return $this->belongsTo(StudyInformation::class,'students_id');
-    }
 
     public function addtional_information()
     {
-        return $this->belongsTo(AdditionalInformation::class,'students_id');
+        return $this->hasOne(AdditionalInformation::class,'student_id','student_id_number');
+    }
+    public function educational_information(){
+        return $this->hasOne(EducationalInformation::class,'student_id','student_id_number');
     }
 
 
-
+    public function graduate()
+    {
+        return $this->hasOne(Graduate::class,'student_id','student_id_number');
+    }
     public function image()
     {
-        return $this->belongsTo(Image::class,'students_id');
+        return $this->hasOne(Image::class,'student_id','student_id_number');
     }
 
-    
+
+    public function student_relatives()
+    {
+        return $this->hasOne(StudentRelative::class,'student_id','student_id_number');
+    }
+
+    public function study_information(){
+        return $this->hasOne(StudyInformation::class,'student_id','student_id_number');
+    }
+
+
+
+
+
+
+
+
 }

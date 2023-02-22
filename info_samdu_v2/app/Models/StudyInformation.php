@@ -10,7 +10,7 @@ class StudyInformation extends Model
     use HasFactory;
 
     protected $fillable=[
-        'students_id',
+        'student_id',
         'enter_order',
         'enter_date',
         'enter_comment',
@@ -37,7 +37,7 @@ class StudyInformation extends Model
     ];
     public function students()
     {
-        return $this->belongsTo(Student::class,'students_id');
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
     }
 
 

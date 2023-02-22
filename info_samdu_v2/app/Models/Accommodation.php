@@ -10,7 +10,7 @@ class Accommodation extends Model
     use HasFactory;
 
     protected $fillable=[
-        'students_id',
+        'student_id',
         'accommodation',
         'country',
         'province',
@@ -24,6 +24,6 @@ class Accommodation extends Model
 
     function students()
     {
-        return $this->belongsTo(Student::class,'students_id');
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
     }
 }

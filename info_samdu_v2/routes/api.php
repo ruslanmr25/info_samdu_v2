@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register', [AuthController::class,'register']);
+Route::post('/login', [AuthController::class,'login'])->middleware('login');
 
+Route::get('tekshirish',[AuthController::class,'test1']);
 
 Route::apiResource('/students',  StudentController::class);
 
@@ -24,3 +29,6 @@ Route::post('/students/study_information',[StudentController::class,'create_stud
 
 
 Route::post('/students/additional',[StudentController::class,'create_place_of_residence']);
+Route::post('/students/relatives',[StudentController::class,'relatives']);
+
+

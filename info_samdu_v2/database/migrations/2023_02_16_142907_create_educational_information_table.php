@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('educational_information', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('students_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
+            $table->foreignId('student_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
             $table->string('department');
             $table->string('specialty');
             $table->string('group');

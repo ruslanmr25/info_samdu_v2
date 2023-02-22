@@ -9,12 +9,12 @@ class AdditionalInformation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'students_id', 'iron_notebook', 'youth_notebook', 'orphan', 'amputatuion', 'ligota', 'iab_child', 'military_child', 'desert', 'woman', 'purpose',
+        'student_id', 'iron_notebook', 'youth_notebook', 'orphan', 'amputatuion', 'ligota', 'iab_child', 'military_child', 'desert', 'woman', 'purpose',
     ];
 
 
     public function students()
     {
-        return $this->belongsTo(Student::class,'students_id');
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
     }
 }

@@ -10,12 +10,12 @@ class Achievements extends Model
     use HasFactory;
 
     protected $fillable=[
-        'students_id',
+        'student_id',
         'scholarship','champion','lang_certificate'
     ];
 
     public function students()
     {
-        return $this->belongsTo(Student::class,'student_id');
+        return $this->belongsTo(Student::class,'student_id_number','student_id');
     }
 }
