@@ -19,18 +19,23 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        $roles=['student_staff','rector','dean','tutor','super_admin'];
 
-        $role = Role::create(
-            [
-                'role' => 'student_staff'
-            ]
-        );
+        foreach($roles as $role){
 
-        $user=User::create([
-            'name'=>'admin',
-            'email'=>'admin@gmail.com',
-            'password'=>Hash::make('123456789')
-        ]);
-        $user->roles()->attach($role->id);
+            $role = Role::create(
+                [
+                    'role' => $role
+                ]
+            );
+            $user=User::create([
+                'name'=>$role->role,
+                'email'=>$role->role.'@gmail.com',
+                'password'=>Hash::make('123456789')
+            ]);
+            $user->roles()->attach($role->id);
+        }
+
+
     }
 }

@@ -24,16 +24,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with('accomodations')
-        ->with('achievement')
-        ->with('addtional_information')
-        ->with('educational_information')
-        ->with('graduate')
-        ->with('image')
-        ->with('student_relatives')
-        ->with('study_information')
-
-        ->paginate(25);
+        $students = Student::paginate(25);
 
         return $students;
 
@@ -54,7 +45,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-         //studentni ushlash
+        //studentni ushlash
         $rstudent = (array) json_decode($request->student);
         $student = Student::create($rstudent);
 
@@ -103,64 +94,63 @@ class StudentController extends Controller
     public function create_place_of_residence(Request $request)
     {
 
-        $student_id=$request->student_id_number;
+        $student_id = $request->student_id_number;
 
 
-        $accomodiation=(array) json_decode($request->accommodation);
-
-
-
-
-
-        $accomodiation['student_id']=$student_id;
-
-
-        $achievements=(array) json_decode($request->achievements);
-        $achievements['student_id']=$student_id;
-        $additional_information=(array) json_decode($request->additional_information);
-        $additional_information['student_id']=$student_id;
-        $graduate=(array) json_decode($request->graduate);
-        $graduate['student_id']=$student_id;
+        $accomodiation = (array) json_decode($request->accommodation);
 
 
 
 
-        $accomodiation=Accommodation::create($accomodiation);
-        $achievements=Achievements::create($achievements);
+
+        $accomodiation['student_id'] = $student_id;
 
 
-        $additional_information=AdditionalInformation::create($additional_information);
-        $graduate=Graduate::create($graduate);
+        $achievements = (array) json_decode($request->achievements);
+        $achievements['student_id'] = $student_id;
+        $additional_information = (array) json_decode($request->additional_information);
+        $additional_information['student_id'] = $student_id;
+        $graduate = (array) json_decode($request->graduate);
+        $graduate['student_id'] = $student_id;
+
+
+
+
+        $accomodiation = Accommodation::create($accomodiation);
+        $achievements = Achievements::create($achievements);
+
+
+        $additional_information = AdditionalInformation::create($additional_information);
+        $graduate = Graduate::create($graduate);
 
         return response()->json([
-            'data'=>[
-                'success'=>true
+            'data' => [
+                'success' => true
             ]
-            ]);
-
+        ]);
     }
 
 
-    public function relatives (Request $request)
+    public function relatives(Request $request)
     {
-        $student_id=$request->student_id_number;
+        $student_id = $request->student_id_number;
 
 
-        $relatives=(array) json_decode($request->relatives);
+        $relatives = (array) json_decode($request->relatives);
 
 
 
 
 
-        $relatives['student_id']=$student_id;
+        $relatives['student_id'] = $student_id;
 
         StudentRelative::create($relatives);
 
         return response()->json([
-            'data'=>[
-                'success'=>true
+            'data' => [
+                'success' => true
             ]
-            ]);
+        ]);
     }
 
     /**
@@ -171,20 +161,26 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $student->with('accomodations')
+            ->with('achievement')
+            ->with('addtional_information')
+            ->with('educational_information')
+            ->with('graduate')
+            ->with('image')
+            ->with('student_relatives')
+            ->with('study_information');
+
+
+
+        return response()->json([
+            'data' => [
+                'success' => true,
+                'student' => $student
+            ]
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        //
-    }
-
+   
     /**
      * Update the specified resource in storage.
      *
