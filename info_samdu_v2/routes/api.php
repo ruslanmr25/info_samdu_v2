@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login'])->middleware('login');
-
-Route::get('tekshirish', [AuthController::class, 'test1']);
+Route::post('login', [AuthController::class, 'login'])->middleware('login');
 
 
 
@@ -29,17 +27,17 @@ Route::get('tekshirish', [AuthController::class, 'test1']);
 
 Route::group(['prefix'=>'tutor','middleware'=>['auth:sanctum','role:tutor']],function(){
     Route::apiResource('/students',  StudentController::class);
-
     Route::post('/students/study_information', [StudentController::class, 'create_study_information']);
-
-
     Route::post('/students/additional', [StudentController::class, 'create_place_of_residence']);
     Route::post('/students/relatives', [StudentController::class, 'relatives']);
 
 });
 
 
-Route::group(['prefix'=>'dean'],function(){
+Route::group(['prefix'=>'dean','middleware'=>['auth:sanctum','role:dean']],function(){
+
+    
+    Route::post('create/tutors',[AuthController::class,'register_tutor']);
 
 
 
@@ -50,6 +48,7 @@ Route::group(['prefix'=>'student-staff','middleware'=>['auth:sanctum','role:stud
 
 
     Route::get('/students',[StudentController::class,'index']);
+    Route::get('students/{student}');
 
 
 });

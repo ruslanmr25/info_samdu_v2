@@ -47,13 +47,21 @@ class AuthController extends Controller
         ]);
     }
 
-    public function test1(Request $request)
+    public function register_tutor(RegisterRequest $request)
     {
+        $user=Auth::user();
+        $password = Hash::make($request->password);
+        $request['password'] = $password;
+        $request['creator']=$user->id;
+        $user=User::create($request->all());
 
-        return $request->cookie('user');
 
-
-
+        return response()->json([
+            'success'=>true,
+            'message'=>'Tutor create successfully'
+        ]);
     }
+
+
 
 }
