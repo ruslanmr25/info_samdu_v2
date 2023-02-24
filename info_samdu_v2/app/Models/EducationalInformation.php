@@ -11,7 +11,7 @@ class EducationalInformation extends Model
 
     protected $fillable=[
         'student_id',
-        'department','specialty','group','educationForm','educationType',
+        'department_id','specialty','group','educationForm','educationType',
         'specialty_code','level','paymentForm','mark'
     ];
 

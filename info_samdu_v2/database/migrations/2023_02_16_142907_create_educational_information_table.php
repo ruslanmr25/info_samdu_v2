@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('educational_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
-            $table->string('department');
+            $table->foreignId('department_id')->references('department_id')->on('faculties')->onDelete('CASCADE');
             $table->string('specialty');
             $table->string('group');
             $table->string('educationForm');

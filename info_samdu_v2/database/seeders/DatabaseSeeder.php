@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
             $user->roles()->attach($role->id);
         }
 
+        $this->call(FacultySeeder::class);
+
 
     }
 }
