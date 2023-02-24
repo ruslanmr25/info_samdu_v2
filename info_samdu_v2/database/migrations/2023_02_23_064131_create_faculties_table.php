@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('faculties', function (Blueprint $table) {
 
-            $table->primaryKey('department_id')->u
+            $table->bigInteger('department_id')->unsigned()->primary();
             $table->timestamps();
         });
     }

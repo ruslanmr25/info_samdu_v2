@@ -21,4 +21,5 @@ class DeanController extends Controller
             ]
             ]);
     }
-    
+}
+
