@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Accommodation;
 use App\Models\Achievements;
 use App\Models\AdditionalInformation;
+use App\Models\EducationalInformation;
 use App\Models\Graduate;
 use App\Models\Image;
 use App\Models\StudentRelative;
@@ -47,12 +48,14 @@ class StudentController extends Controller
     {
         //studentni ushlash
         $rstudent = (array) json_decode($request->student);
+
+        // return $rstudent;
         $student = Student::create($rstudent);
 
 
         $r_educational_information = (array) json_decode($request->educational_information);
-        $r_educational_information['student_id'] = $student->student_id_number;
-        $student->educational_information()->create($r_educational_information);
+        $r_educational_information['student_id'] = $request->student_id_number;
+        EducationalInformation::create($r_educational_information);
         if ($request->images) {
             $image = $request->file('images');
             $image_path = $image->store('images/users');
@@ -60,10 +63,11 @@ class StudentController extends Controller
             $image_path = $rstudent['image'];
         }
 
-        $student->image()->create([
-            'student_id' => $student->student_id_number,
+       Image::create([
+            'student_id' => $request->student_id_number,
             'ImagePath' => $image_path
         ]);
+
 
 
 
@@ -134,17 +138,12 @@ class StudentController extends Controller
     public function relatives(Request $request)
     {
         $student_id = $request->student_id_number;
-
-
-        $relatives = (array) json_decode($request->relatives);
-
-
-
-
-
-        $relatives['student_id'] = $student_id;
-
-        StudentRelative::create($relatives);
+        $request['student_id'] = $student_id;
+        StudentRelative::create([
+            'student_id'=>$student_id,
+            'relatives'=>$request->relatives,
+            'is_married'=>$request->is_married
+        ]);
 
         return response()->json([
             'data' => [
@@ -161,14 +160,14 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->with('accomodations')
-            ->with('achievement')
-            ->with('addtional_information')
-            ->with('educational_information')
-            ->with('graduate')
-            ->with('image')
-            ->with('student_relatives')
-            ->with('study_information');
+        $student= $student->with('accomodations')->with('achievement')->with('addtional_information')
+        ->with('educational_information')
+        ->with('graduate')
+        ->with('image')
+        ->with('student_relatives')
+        ->with('study_information')
+        ->get();
+
 
 
 
@@ -180,7 +179,7 @@ class StudentController extends Controller
         ]);
     }
 
-   
+
     /**
      * Update the specified resource in storage.
      *
