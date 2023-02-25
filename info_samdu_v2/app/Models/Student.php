@@ -45,10 +45,7 @@ class Student extends Model
         return $this->hasOne(EducationalInformation::class,'student_id','student_id_number')->with('department');
     }
 
-    public function department()
-    {
-        return $this->educational_information->with('department');
-    }
+   
 
 
     public function graduate()

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('finish_speciality');
             $table->string('finish_educationForm');
 
-            $table->string('finish_univercity');
+            $table->string('finish_university');
             $table->timestamps();
         });
     }

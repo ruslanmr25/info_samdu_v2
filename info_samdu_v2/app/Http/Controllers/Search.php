@@ -30,5 +30,13 @@ class Search extends Controller
         if ($request->nationality) {
             $students = Student::where('nationality', $request->nationality)->get();
         }
+
+
+        $params=$request->params();
+
+        
+
+
+
     }
 }

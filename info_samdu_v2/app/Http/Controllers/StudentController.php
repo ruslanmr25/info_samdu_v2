@@ -28,7 +28,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::paginate(25);
+        $students = Student::with('educational_information')->paginate(25);
 
         return $students;
 
@@ -163,12 +163,17 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student = $student->with('accomodations')->with('achievement')->with('addtional_information')
-            ->with('educational_information')
-            ->with('graduate')
-            ->with('image')
-            ->with('student_relatives')
-            ->with('study_information')
+        //return $student;
+        // return $student->with('accomodations')->get();
+
+        $req_student = $student->with('accomodations')
+            // ->with('achievement')
+            // ->with('addtional_information')
+            // ->with('educational_information')
+            // ->with('graduate')
+            // ->with('image')
+            // ->with('student_relatives')
+            // ->with('study_information')
             ->get();
 
 
@@ -177,7 +182,7 @@ class StudentController extends Controller
         return response()->json([
             'data' => [
                 'success' => true,
-                'student' => $student
+                'student' => $req_student
             ]
         ]);
     }
