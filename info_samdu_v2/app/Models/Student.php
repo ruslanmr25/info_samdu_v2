@@ -42,7 +42,12 @@ class Student extends Model
         return $this->hasOne(AdditionalInformation::class,'student_id','student_id_number');
     }
     public function educational_information(){
-        return $this->hasOne(EducationalInformation::class,'student_id','student_id_number');
+        return $this->hasOne(EducationalInformation::class,'student_id','student_id_number')->with('department');
+    }
+
+    public function department()
+    {
+        return $this->educational_information->with('department');
     }
 
 

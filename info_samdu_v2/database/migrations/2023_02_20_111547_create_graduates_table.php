@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('finish_collage_date');
             $table->string('finish_speciality');
             $table->string('finish_educationForm');
+
+            $table->string('finish_univercity');
             $table->timestamps();
         });
     }

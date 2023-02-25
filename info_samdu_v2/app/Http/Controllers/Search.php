@@ -16,23 +16,19 @@ class Search extends Controller
      */
     public function __invoke(Request $request)
     {
-        if($request->student_id_number){
-            $students= Student::find($request->student_id_number);
+        if ($request->student_id_number) {
+            $students = Student::find($request->student_id_number);
         }
-        if($request->jshshir){
-            $students= Student::where('JSHSHIR',$request->jshshir)->get();
-        }
-
-        if($request->passport){
-            $students= Student::where('passport',$request->passport)->get();
+        if ($request->jshshir) {
+            $students = Student::where('JSHSHIR', $request->jshshir)->get();
         }
 
-        if($request->nationality){
-            $students= Student::where('nationality',$request->nationality)->get();
-
+        if ($request->passport) {
+            $students = Student::where('passport', $request->passport)->get();
         }
 
-
-
+        if ($request->nationality) {
+            $students = Student::where('nationality', $request->nationality)->get();
+        }
     }
 }

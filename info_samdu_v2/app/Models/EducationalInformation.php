@@ -9,6 +9,11 @@ class EducationalInformation extends Model
 {
     use HasFactory;
 
+
+    protected $hidden=[
+        'department_id'
+    ];
+
     protected $fillable=[
         'student_id',
         'department_id','specialty','group','educationForm','educationType',
@@ -18,5 +23,10 @@ class EducationalInformation extends Model
 
     public function students(){
         return $this->belongsTo(Student::class,'student_id_number','student_id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Faculty::class,'department_id','department_id');
     }
 }

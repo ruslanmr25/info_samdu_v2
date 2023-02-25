@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RelativeseRequest;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\StoreStudyInformation;
 use App\Models\Student;
 
 use App\Http\Requests\UpdateStudentRequest;
@@ -44,7 +47,7 @@ class StudentController extends Controller
      * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
         //studentni ushlash
         $rstudent = (array) json_decode($request->student);
@@ -63,7 +66,7 @@ class StudentController extends Controller
             $image_path = $rstudent['image'];
         }
 
-       Image::create([
+        Image::create([
             'student_id' => $request->student_id_number,
             'ImagePath' => $image_path
         ]);
@@ -79,7 +82,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function create_study_information(Request $request)
+    public function create_study_information(StoreStudyInformation $request)
     {
 
         $student_id = $request->student_id_number;
@@ -135,14 +138,14 @@ class StudentController extends Controller
     }
 
 
-    public function relatives(Request $request)
+    public function relatives(RelativeseRequest $request)
     {
         $student_id = $request->student_id_number;
         $request['student_id'] = $student_id;
         StudentRelative::create([
-            'student_id'=>$student_id,
-            'relatives'=>$request->relatives,
-            'is_married'=>$request->is_married
+            'student_id' => $student_id,
+            'relatives' => $request->relatives,
+            'is_married' => $request->is_married
         ]);
 
         return response()->json([
@@ -160,13 +163,13 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student= $student->with('accomodations')->with('achievement')->with('addtional_information')
-        ->with('educational_information')
-        ->with('graduate')
-        ->with('image')
-        ->with('student_relatives')
-        ->with('study_information')
-        ->get();
+        $student = $student->with('accomodations')->with('achievement')->with('addtional_information')
+            ->with('educational_information')
+            ->with('graduate')
+            ->with('image')
+            ->with('student_relatives')
+            ->with('study_information')
+            ->get();
 
 
 

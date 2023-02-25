@@ -9,6 +9,8 @@ class Faculty extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'department_id';
+
     protected $fillable=[
         'department_id','name'
     ];
