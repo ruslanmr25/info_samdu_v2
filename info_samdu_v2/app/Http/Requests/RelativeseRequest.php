@@ -24,7 +24,7 @@ class RelativeseRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id_number'=>'required|unique:relatives,student_id'
+            'student_id_number'=>'required|unique:student_relatives,student_id'
         ];
     }
 }

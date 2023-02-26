@@ -14,7 +14,7 @@ class Graduate extends Model
         'finish_educationForm',
         'finish_speciality','finish_collage_date','finish_collage',
         'diploma_date',
-        'diploma','student_id','finish_univercity'
+        'diploma','student_id','finish_university'
     ];
 
 
