@@ -52,7 +52,7 @@ Route::group(['prefix' => 'student-staff', 'middleware' => ['auth:sanctum', 'rol
 
 
     Route::get('/students', [StudentController::class, 'index']);
-    Route::get('students/{student}');
+    Route::get('students/{student}',[StudentController::class,'show']);
 });
 
 

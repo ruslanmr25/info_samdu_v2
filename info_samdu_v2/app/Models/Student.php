@@ -11,6 +11,8 @@ class Student extends Model
 
     protected $primaryKey ='student_id_number';
 
+    public $incrementing = false;
+
     protected $fillable=[
         'student_id_number',
         'passport','get_passport',
@@ -45,7 +47,7 @@ class Student extends Model
         return $this->hasOne(EducationalInformation::class,'student_id','student_id_number')->with('department');
     }
 
-   
+
 
 
     public function graduate()

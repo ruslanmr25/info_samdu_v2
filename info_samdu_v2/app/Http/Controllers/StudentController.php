@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RelativeseRequest;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\StoreStudyInformation;
-use App\Models\Student;
-
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Student;
 use App\Models\Accommodation;
 use App\Models\Achievements;
 use App\Models\AdditionalInformation;
@@ -17,7 +16,7 @@ use App\Models\Image;
 use App\Models\StudentRelative;
 use App\Models\StudyInformation;
 use Illuminate\Http\Request;
-use PhpParser\Node\Name\Relative;
+use PHPUnit\Framework\MockObject\Builder\Stub;
 
 class StudentController extends Controller
 {
@@ -161,20 +160,20 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($student)
     {
-        //return $student;
-        // return $student->with('accomodations')->get();
-
-        $req_student = $student->with('accomodations')
-            // ->with('achievement')
-            // ->with('addtional_information')
-            // ->with('educational_information')
-            // ->with('graduate')
-            // ->with('image')
-            // ->with('student_relatives')
-            // ->with('study_information')
-            ->get();
+        Student::findOrFail($student);
+ 
+        $student = Student::where('student_id_number', $student)
+            ->with('accomodations')
+            ->with('achievement')
+            ->with('addtional_information')
+            ->with('educational_information')
+            ->with('graduate')
+            ->with('image')
+            ->with('student_relatives')
+            ->with('study_information')
+            ->get()[0];
 
 
 
@@ -182,7 +181,7 @@ class StudentController extends Controller
         return response()->json([
             'data' => [
                 'success' => true,
-                'student' => $req_student
+                'student' => $student
             ]
         ]);
     }

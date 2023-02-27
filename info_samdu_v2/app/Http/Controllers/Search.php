@@ -31,12 +31,8 @@ class Search extends Controller
             $students = Student::where('nationality', $request->nationality)->get();
         }
 
+      
 
-        $params=$request->params();
-
-        
-
-
-
+        return $students;
     }
 }
