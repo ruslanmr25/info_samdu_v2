@@ -46,18 +46,27 @@ class StudentController extends Controller
      * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
         //studentni ushlash
         $rstudent = (array) json_decode($request->student);
 
-        // return $rstudent;
-        $student = Student::create($rstudent);
+
+        $student = Student::updateOrCreate(
+            ['student_id_number' => $request->student_id_number],
+            $rstudent
+        );
 
 
         $r_educational_information = (array) json_decode($request->educational_information);
         $r_educational_information['student_id'] = $request->student_id_number;
-        EducationalInformation::create($r_educational_information);
+        EducationalInformation::updateOrCreate(
+            ['student_id' => $request->student_id_number],
+            $r_educational_information
+        );
+
+
+        
         if ($request->images) {
             $image = $request->file('images');
             $image_path = $image->store('images/users');
@@ -65,10 +74,12 @@ class StudentController extends Controller
             $image_path = $rstudent['image'];
         }
 
-        Image::create([
-            'student_id' => $request->student_id_number,
-            'ImagePath' => $image_path
-        ]);
+        Image::updateOrCreate(
+            ['student_id' => $request->student_id_number],
+            [   'student_id' => $request->student_id_number,
+                'ImagePath' => $image_path
+            ]
+        );
 
 
 
@@ -163,7 +174,7 @@ class StudentController extends Controller
     public function show($student)
     {
         Student::findOrFail($student);
- 
+
         $student = Student::where('student_id_number', $student)
             ->with('accomodations')
             ->with('achievement')
@@ -173,7 +184,7 @@ class StudentController extends Controller
             ->with('image')
             ->with('student_relatives')
             ->with('study_information')
-            ->get()[0];
+            ->first();
 
 
 

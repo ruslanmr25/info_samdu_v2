@@ -24,7 +24,7 @@ return new class extends Migration
             $table->bigInteger('specialty_code');
             $table->string('level');
             $table->string('paymentForm');
-            $table->bigInteger('mark');
+            $table->float('mark');
             $table->timestamps();
 
 

@@ -18,7 +18,8 @@ return new class extends Migration
 
             $table->foreignId('student_id')->references('student_id_number')->on('students')->onDelete('CASCADE');
             $table->string('is_married');
-            $table->json('relatives');
+            $table->json('relatives')->nullable();
+
             $table->timestamps();
         });
     }
