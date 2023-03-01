@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Hemis\HemisController;
 use App\Http\Controllers\Search;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->middleware('login');
 
@@ -27,6 +29,8 @@ Route::apiResource('/students',  StudentController::class);
 Route::post('/students/study_information', [StudentController::class, 'create_study_information']);
 Route::post('/students/additional', [StudentController::class, 'create_place_of_residence']);
 Route::post('/students/relatives', [StudentController::class, 'relatives']);
+
+Route::get('image/{student}',[HemisController::class,'show']);
 
 
 
