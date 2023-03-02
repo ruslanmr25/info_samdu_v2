@@ -56,6 +56,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'HEMIS_TOKEN'=>env('HEMIS_TOKEN'),
+    'HEMIS_URL'=>env('HEMIS_URL'),
+
     'asset_url' => env('ASSET_URL'),
 
     /*

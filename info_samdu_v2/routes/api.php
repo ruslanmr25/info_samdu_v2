@@ -30,7 +30,17 @@ Route::post('/students/study_information', [StudentController::class, 'create_st
 Route::post('/students/additional', [StudentController::class, 'create_place_of_residence']);
 Route::post('/students/relatives', [StudentController::class, 'relatives']);
 
-Route::get('image/{student}',[HemisController::class,'show']);
+
+
+
+
+
+
+
+Route::group(['prefix'=>'hemis','middleware'=>['auth:sanctum','role:tutor']],function(){
+    Route::get('image/{student}',[HemisController::class,'image']);
+    Route::get('students/{student}',[HemisController::class,'show']);
+});
 
 
 
