@@ -24,7 +24,7 @@ class HemisController extends Controller
         ])->get($url);
 
 
-        
+
 
 
         return json_decode($request);

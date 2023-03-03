@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RelativeseRequest;
-use App\Http\Requests\StoreStudentRequest;
+
 use App\Http\Requests\StoreStudyInformation;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
@@ -16,8 +16,6 @@ use App\Models\Image;
 use App\Models\StudentRelative;
 use App\Models\StudyInformation;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\MockObject\Builder\Stub;
-
 class StudentController extends Controller
 {
     /**
@@ -66,7 +64,7 @@ class StudentController extends Controller
         );
 
 
-        
+
         if ($request->images) {
             $image = $request->file('images');
             $image_path = $image->store('images/users');

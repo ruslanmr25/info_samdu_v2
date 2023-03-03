@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('diploma')->nullable();
             $table->date('diploma_date')->nullable();
             $table->string('finish_collage');
-            $table->date('finish_collage_date');
+            
             $table->string('finish_speciality');
             $table->string('finish_educationForm');
 
