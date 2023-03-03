@@ -23,14 +23,8 @@ class HemisController extends Controller
             'Authorization'=>'Bearer '.$HEMIS_TOKEN
         ])->get($url);
 
-        $image=redirect()->route('image',['student'=>$student]);
 
-        return response()->json([
-            'data'=>[
-                'request'=>$request,
-                'image'=>$image
-            ]
-            ]);
+        
 
 
         return json_decode($request);

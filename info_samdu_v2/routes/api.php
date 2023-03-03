@@ -35,10 +35,10 @@ Route::post('/students/relatives', [StudentController::class, 'relatives']);
 
 
 
+Route::get('image/{student}',[HemisController::class,'image'])->name('image');
 
 
 Route::group(['prefix'=>'hemis','middleware'=>['auth:sanctum','role:tutor']],function(){
-    Route::get('image/{student}',[HemisController::class,'image'])->name('image');
     Route::get('students/{student}',[HemisController::class,'show']);
 });
 
