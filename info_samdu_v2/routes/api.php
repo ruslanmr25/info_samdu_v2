@@ -4,9 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Hemis\HemisController;
 use App\Http\Controllers\Search;
 use App\Http\Controllers\StudentController;
-use App\Models\Student;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,11 +33,11 @@ Route::post('/students/relatives', [StudentController::class, 'relatives']);
 
 
 
-Route::get('image/{student}',[HemisController::class,'image'])->name('image');
+Route::get('image/{student}', [HemisController::class, 'image'])->name('image');
 
 
-Route::group(['prefix'=>'hemis','middleware'=>['auth:sanctum','role:tutor']],function(){
-    Route::get('students/{student}',[HemisController::class,'show']);
+Route::group(['prefix' => 'hemis', 'middleware' => ['auth:sanctum', 'role:tutor']], function () {
+    Route::get('students/{student}', [HemisController::class, 'show']);
 });
 
 
@@ -66,8 +64,8 @@ Route::group(['prefix' => 'student-staff', 'middleware' => ['auth:sanctum', 'rol
 
 
     Route::get('/students', [StudentController::class, 'index']);
-    Route::get('students/{student}',[StudentController::class,'show']);
+    Route::get('students/{student}', [StudentController::class, 'show']);
 });
 
 
-Route::get('/search',Search::class);
+Route::get('/search', Search::class);

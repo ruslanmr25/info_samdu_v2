@@ -49,7 +49,6 @@ class StudentController extends Controller
         //studentni ushlash
 
 
-        return gettype($request->student);
         $rstudent = (array) json_decode($request->student);
 
 
