@@ -47,6 +47,9 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //studentni ushlash
+
+
+        return gettype($request->student);
         $rstudent = (array) json_decode($request->student);
 
 

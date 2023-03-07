@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EducationalInformation;
+
 use App\Models\Student;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Return_;
-use PHPUnit\Framework\MockObject\Builder\Stub;
 
 class Search extends Controller
 {
@@ -34,59 +32,39 @@ class Search extends Controller
 
 
         if ($request->educational_information) {
-            $query->whereRelation('educational_information', function ($educ_query) use ($request) {
 
+            foreach($request->educational_information as $key=>$value){
 
-                return $educ_query->where($request->educational_information);
-            });
+                $query->whereRelation('educational_information', function ($educ_query) use ($key,$value) {
+                    if($key=='department_id'){
+                        return $educ_query->where($key, $value);
 
+                    }
+
+                    return $educ_query->where($key, 'LIKE', '%' . $value . '%');
+                });
+            }
 
 
         }
-        return $query->with('educational_information')->get();
 
-        // // $search_educ=$request->eductional_information;
-        // $sear_student=$request->student;
+        if ($request->addtional_information) {
 
-        // return $request->all();
+            foreach($request->addtional_information as $key=>$value){
 
-
+                $query->whereRelation('addtional_information', function ($additional_query) use ($key,$value) {
 
 
-        // $query=EducationalInformation::query();
+                    return $additional_query->where($key, 'LIKE', '%' . $value . '%');
+                });
+            }
 
 
-        // $condition=[];
-        // if($request->department){
-        //      $condition['department_id']=$request->department;
-        // }
-
-        // if($request->specialty){
-        //     $condition['specialty']=$request->specialty;
-        // }
-
-        // if($request->level){
-        //     $condition['level']=$request->level;
-        // }
-
-        // if($request->paymentForm){
-        //     $condition['paymentForm']=$request->paymentForm;
-        // }
-        // if($request->group){
-        //     $condition['group']=$request->group;
-        // }
+        }
 
 
 
-        // foreach($condition as $key=>$value){
-        //     $query->where($key,'LIKE','%'.$value.'%');
-
-
-
-        // }
-        // $students=$query->get();
-
-        // return $students;
+        return $query->with('educational_information')->paginate();
 
 
 
