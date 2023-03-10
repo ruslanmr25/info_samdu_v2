@@ -64,7 +64,7 @@ class Search extends Controller
 
 
 
-        return $query->with('educational_information')->paginate();
+        return $query->with('educational_information')->paginate(3);
 
 
 

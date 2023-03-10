@@ -33,11 +33,23 @@ Route::post('/students/relatives', [StudentController::class, 'relatives']);
 
 
 
-Route::get('image/{student}', [HemisController::class, 'image'])->name('image');
 
 
-Route::group(['prefix' => 'hemis', 'middleware' => ['auth:sanctum', 'role:tutor']], function () {
+Route::group(['prefix' => 'hemis', ], function () {
+
+
+
+
+    Route::get('image/{student}', [HemisController::class, 'image'])->name('image');
     Route::get('students/{student}', [HemisController::class, 'show']);
+    Route::get('curriculum-list',[HemisController::class,'curriculum_list']);
+    Route::get('group-list',[HemisController::class,'group_list']);
+    Route::get('department-list',[HemisController::class,'department_list']);
+
+
+
+
+
 });
 
 
