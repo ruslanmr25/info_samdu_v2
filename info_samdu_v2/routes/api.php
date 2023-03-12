@@ -35,7 +35,7 @@ Route::post('/students/relatives', [StudentController::class, 'relatives']);
 
 
 
-Route::group(['prefix' => 'hemis', ], function () {
+Route::group(['prefix' => 'hemis','middleware'=>[ 'auth:sanctum','role:tutor'] ], function () {
 
 
 

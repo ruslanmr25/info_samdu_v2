@@ -16,7 +16,9 @@ class HemisController extends Controller
         $HEMIS_URL = config('app.HEMIS_URL');
         $HEMIS_TOKEN = config('app.HEMIS_TOKEN');
 
-        $url = $HEMIS_URL . "/student-list?search=" . $student;
+        $url = $HEMIS_URL . "data/student-list?search=" . $student;
+
+    
 
 
         $request = Http::withHeaders([
@@ -57,7 +59,7 @@ class HemisController extends Controller
         $HEMIS_URL = config('app.HEMIS_URL');
         $HEMIS_TOKEN = config('app.HEMIS_TOKEN');
 
-        $url = $HEMIS_URL . "/data/curriculum-list?_department=" . $request->_department;
+        $url = $HEMIS_URL . "data/curriculum-list?_department=" . $request->_department;
 
 
         $request = Http::withHeaders([
@@ -83,7 +85,7 @@ class HemisController extends Controller
         $HEMIS_URL = config('app.HEMIS_URL');
         $HEMIS_TOKEN = config('app.HEMIS_TOKEN');
 
-        $url = $HEMIS_URL . "/data/group-list?_curriculum=" . $request->_curriculum;
+        $url = $HEMIS_URL . "data/group-list?_curriculum=" . $request->_curriculum;
 
 
         $request = Http::withHeaders([
@@ -108,7 +110,7 @@ class HemisController extends Controller
         $HEMIS_URL = config('app.HEMIS_URL');
         $HEMIS_TOKEN = config('app.HEMIS_TOKEN');
 
-        $url = $HEMIS_URL . "/data/department-list?limit=30&_structure_type=11" ;
+        $url = $HEMIS_URL . "data/department-list?limit=30&_structure_type=11" ;
 
 
         $request = Http::withHeaders([

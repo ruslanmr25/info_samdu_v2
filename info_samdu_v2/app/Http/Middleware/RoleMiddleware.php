@@ -18,6 +18,8 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next,$role)
     {
 
+
+        
         $user=Auth::user();
         if($user->roles()->get()[0]->role==$role){
 
